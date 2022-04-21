@@ -13,7 +13,7 @@ StakeDaoPerpVault Solidity smart contracts
 To install all necessary dependencies, from project root run:
 
 ```shell
-npm ci
+npm i
 ```
 
 add a `.env` file containing your pk at the project root folder.
@@ -26,26 +26,7 @@ To compile the contracts, from project root run:
 npm run compile
 ```
 
-## Testing contracts
-
-To test the contracts, from project root run the following:
-
-### Running unit tests
-
+## Deploy contracts
 ```shell
-npm run test
-```
-
-### Mainnet fork test
-
-```shell
-npm run test:fork
-```
-
-## Coverage
-
-Generate test coverage report
-
-```shell
-npm run test:coverage
+npx hardhat run --network avalanche scripts/deploy.js
 ```
