@@ -57,10 +57,12 @@ async function main() {
         network: ethers.provider.network,
         constructorArguments: [
             vault.address,
-            wETH,
             swap,
+            whitelist,
             controller,
-            vaultType
+            vaultType,
+            wETH,
+            1,
         ]
     })
 
