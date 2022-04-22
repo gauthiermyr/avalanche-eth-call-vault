@@ -11,7 +11,6 @@ async function main() {
     const vaultType = 0
 
     const [deployer,] = await ethers.getSigners();
-    console.log(deployer)
     // Deploy the PerpVault contract first
     const OpynPerpVault = await ethers.getContractFactory('OpynPerpVault');
     const vault = await OpynPerpVault.deploy();
