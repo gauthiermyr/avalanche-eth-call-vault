@@ -8,6 +8,7 @@ async function main() {
     const swap = '0x62069ff3b5127742b0d86b5ff5c6c21cf5e44154'
     const controller = '0x9e3b94819aaf6de606c4aa844e3215725b997064'
     const whitelist = '0xe9963affc9a53e293c9bb547c52902071e6087c9'
+    const sdDeployer = '0xb36a0671b3d49587236d7833b01e79798175875f'
     const vaultType = 0
 
     const [deployer,] = await ethers.getSigners();
@@ -17,7 +18,7 @@ async function main() {
 
     await vault.deployed();
 
-    console.log(`🍩 Vault deployed at ${vault.address}`)
+    console.log(`Vault deployed at ${vault.address}`)
 
     const ShortAction = await ethers.getContractFactory('ShortOTokenActionWithSwap');
     const action = await ShortAction.deploy(
@@ -30,12 +31,16 @@ async function main() {
         1,
     );
 
-    console.log(`🍣 ShortOTokenActionWithSwap deployed at ${action.address}`)
+    console.log(`ShortOTokenActionWithSwap deployed at ${action.address}`);
+
+    await action.transferOwnership(sdDeployer);
+    console.log(`ShortOTokenActionWithSwap ownership transferred to ${sdDeployer}`);
+
 
     await vault.init(
         wETH, // underlying asset (wETH)
-        deployer.address, // owner.address,
-        deployer.address, // feeRecipient
+        sdDeployer, // owner.address,
+        sdDeployer, // feeRecipient
         18,
         'StakeDAO ETH Covered Call Strategy',
         'sdETHCoveredCall',
@@ -63,7 +68,7 @@ async function main() {
             wETH,
             1,
         ]
-    })
+    });
 
 }
 
